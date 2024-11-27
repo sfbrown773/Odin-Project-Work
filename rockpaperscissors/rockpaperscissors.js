@@ -11,12 +11,15 @@ const computerScoreboard = document.querySelector('#computerScore');
 
 rockButton.addEventListener("click", () => {
     playRound(getComputerChoice(),'rock');
+    passToScoreboard();
 });
 paperButton.addEventListener("click", () => {
     playRound(getComputerChoice,'paper');
+    passToScoreboard();
 });
 scissorsButton.addEventListener("click", () => {
     playRound(getComputerChoice(),'scissors');
+    passToScoreboard();
 });
 
 function passToScoreboard() {
