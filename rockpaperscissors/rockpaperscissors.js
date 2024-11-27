@@ -5,29 +5,27 @@ const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
 const humanScoreboard = document.querySelector('#humanScore');
-    humanScoreboard.textContent = `Human Score: ${humanScore}`
 const computerScoreboard = document.querySelector('#computerScore');
-    computerScoreboard.textContent = `Computer Score: ${computerScore}`
 
 rockButton.addEventListener("click", () => {
-    playRound(getComputerChoice(),'rock');
-    passToScoreboard();
+    passToScoreboard('rock');
 });
 paperButton.addEventListener("click", () => {
-    playRound(getComputerChoice,'paper');
-    passToScoreboard();
+    passToScoreboard('paper');
 });
 scissorsButton.addEventListener("click", () => {
-    playRound(getComputerChoice(),'scissors');
-    passToScoreboard();
+    passToScoreboard('scissors');
 });
 
-function passToScoreboard() {
+function passToScoreboard(humanSelection) {
+    const computerSelection = getComputerChoice();
     const roundResult = playRound(humanSelection, computerSelection);
     if (roundResult === 'human wins') {
         humanScore++
+        humanScoreboard.textContent = `Human Score: ${humanScore}`
     } else if (roundResult === 'computer wins') {
         computerScore++
+        computerScoreboard.textContent = `Computer Score: ${computerScore}`
     };
 }
 
@@ -42,7 +40,7 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
+/*function getHumanChoice() {
     let humanChoice = prompt('Choose rock, paper, or scissors.', 'scissors');
     humanChoice = humanChoice.toLowerCase();
     if (humanChoice!=='rock' && humanChoice!=='paper' && humanChoice!=='scissors') {
@@ -53,6 +51,7 @@ function getHumanChoice() {
     }
 
 }
+    */
 function playRound(computerChoice, humanChoice) {
     if (
         (computerChoice === 'rock' && humanChoice === 'scissors') ||
