@@ -40,18 +40,6 @@ function getComputerChoice() {
     }
 }
 
-/*function getHumanChoice() {
-    let humanChoice = prompt('Choose rock, paper, or scissors.', 'scissors');
-    humanChoice = humanChoice.toLowerCase();
-    if (humanChoice!=='rock' && humanChoice!=='paper' && humanChoice!=='scissors') {
-        console.log('choose a valid option')
-        return getHumanChoice();
-    } else {
-        return humanChoice
-    }
-
-}
-    */
 function playRound(computerChoice, humanChoice) {
     if (
         (computerChoice === 'rock' && humanChoice === 'scissors') ||
@@ -72,30 +60,3 @@ function playRound(computerChoice, humanChoice) {
         return 'tie';
     }
 }
-function playGame() {
-
-    let humanScore = 0
-    let computerScore = 0 
-
-    for (let i = 1; i <= 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();   
-        const roundResult = playRound(humanSelection, computerSelection);
-
-        if (roundResult === 'human wins') {
-            humanScore++
-        } else if (roundResult === 'computer wins') {
-            computerScore++
-        }
-    }
-
-    if (humanScore > computerScore) {
-        console.log('The human race is victorious')
-    } else if (computerScore > humanScore) {
-        console.log('We have fallen to the machines')
-    } else if (computerScore===humanScore) {
-        console.log('Indeterminate result, but we have much to fear')
-    }
-}
-
-playGame();
