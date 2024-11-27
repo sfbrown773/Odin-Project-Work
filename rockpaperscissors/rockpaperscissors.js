@@ -1,3 +1,32 @@
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
+const humanScoreboard = document.querySelector('#humanScore');
+    humanScoreboard.textContent = `Human Score: ${humanScore}`
+const computerScoreboard = document.querySelector('#computerScore');
+    computerScoreboard.textContent = `Computer Score: ${humanScore}`
+let humanScore = 0
+let computerScore = 0 
+
+rockButton.addEventListener("click", () => {
+    playRound(getComputerChoice(),'rock');
+});
+paperButton.addEventListener("click", () => {
+    playRound(getComputerChoice,'paper');
+});
+scissorsButton.addEventListener("click", () => {
+    playRound(getComputerChoice(),'scissors');
+});
+
+function passToScoreboard() {
+    const roundResult = playRound(humanSelection, computerSelection);
+    if (roundResult === 'human wins') {
+        humanScore++
+    } else if (roundResult === 'computer wins') {
+        computerScore++
+    };
+}
+
 function getComputerChoice() {
     const randomVal = Math.random();
     if (randomVal >=.66) {
