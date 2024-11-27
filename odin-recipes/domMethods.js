@@ -23,7 +23,7 @@ para.style.color = 'red'
 heading.textContent = 'I’m a blue h3!'
 heading.style.color = 'blue'
 
-div.style.cssText = 'border:black;background:pink'
+div.style.cssText = 'border:1px solid black;background:pink'
 
 headingInDiv.textContent = 'I\'m in a div'
 paraInDiv.textContent = 'ME TOO!'
