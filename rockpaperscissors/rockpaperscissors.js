@@ -1,12 +1,13 @@
+let humanScore = 0
+let computerScore = 0 
+
 const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
 const humanScoreboard = document.querySelector('#humanScore');
     humanScoreboard.textContent = `Human Score: ${humanScore}`
 const computerScoreboard = document.querySelector('#computerScore');
-    computerScoreboard.textContent = `Computer Score: ${humanScore}`
-let humanScore = 0
-let computerScore = 0 
+    computerScoreboard.textContent = `Computer Score: ${computerScore}`
 
 rockButton.addEventListener("click", () => {
     playRound(getComputerChoice(),'rock');
