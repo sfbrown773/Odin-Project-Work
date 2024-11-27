@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+@@ -31,7 +36,35 @@ <h1>My shopping list</h1>
+    </ul>
+
+    <script>
+        const list = document.querySelector('ul');
+        const input = document.querySelector('input');
+        const button = document.querySelector('button');
+
+        button.addEventListener("click", () => {
+            const inputValue = input.value.trim();
+            if (inputValue === '') {
+          alert('Please enter an item.');
+          return;
+        }
+          
+            input.value = '';
+            const listItem = document.createElement('li');
+            const span = document.createElement('span');
+            const buttonInList = document.createElement('button');
+          
+              span.textContent = inputValue;
+              buttonInList.textContent = 'Delete';
+          
+              listItem.appendChild(span);
+              listItem.appendChild(buttonInList);
+              list.appendChild(listItem);
+          
+              buttonInList.addEventListener("click", () => {
+                list.removeChild(listItem);
+              });
+              input.focus();
+            });
+    </script>
+  </body>
+</html>
