@@ -10,3 +10,19 @@ for (i = 0; i < 16; i++) {
     }
     container.appendChild(row);
 }
+
+const divInContainer = document.querySelectorAll('.container div');
+/*const originalDivColor = divInContainer.forEach(div => {
+    div.style.background
+});*/
+
+// Add event listener to each div
+divInContainer.forEach(div => {
+    div.addEventListener('mouseover', () => {
+        div.style.background = "#AA0000";
+    });
+
+    div.addEventListener('mouseoff', () => {
+        changeBackground('');
+    });
+});
