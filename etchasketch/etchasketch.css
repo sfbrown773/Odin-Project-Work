@@ -12,7 +12,8 @@ html, body {
 }
 
 .column {
-  width: calc(100% / 4);
-  height: calc(100% / 4);
+  flex: 0 0 calc(100% / var(--grid-size));
+  height: calc(100% / var(--grid-size));
   border: 1px solid black;
+  box-sizing: border-box; /* Ensures border doesn't affect size */
 }
