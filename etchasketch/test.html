@@ -19,63 +19,73 @@
     }
 
     .column {
-      flex: 0 0 calc(25%); /* Each item takes up 25% of the container's width */
-      height: calc(25%);   /* Each item takes up 25% of the container's height */
+      flex: 0 0 calc(100% / var(--grid-size));
+      height: calc(100% / var(--grid-size));
       border: 1px solid black;
-      box-sizing: border-box; /* Ensures border doesn't affect width/height */
+      box-sizing: border-box; /* Ensures border doesn't affect size */
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Generate 16 boxes -->
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-  </div>
+    <button class="gridSize">Grid Size</button>
+  <div class="container"></div>
   <script>
 const container = document.querySelector('.container');
+const root = document.documentElement;
 
-for (i = 0; i < 16; i++) {
-    const row = document.createElement('div');
-    row.classList.add('row')
-    for(i = 0; i < 16; i++){
-        const column = document.createElement('div');
-        column.classList.add('column')
-        row.appendChild(column);
+let gridSize = 16
+root.style.setProperty('--grid-size', gridSize);
+
+function generateGrid(size) {
+    container.innerHTML = '';
+    for (let rowIndex = 0; rowIndex < gridSize; rowIndex++) { // Use a different variable name for the outer loop
+        for (let colIndex = 0; colIndex < gridSize; colIndex++) { // Use a different variable name for the inner loop
+            const column = document.createElement('div');
+            column.classList.add('column');
+            container.appendChild(column);
+        }
     }
-    container.appendChild(row);
 }
 
-const divInContainer = document.querySelectorAll('.container div');
-/*const originalDivColor = divInContainer.forEach(div => {
-    div.style.background
-});*/
+generateGrid(gridSize);
 
+const button = document.querySelector('.gridSize')
+
+button.addEventListener('click', () => {
+  let newGrid = prompt('Dimensions for next grid are X by X. Choose a number X:');
+  while (isNaN(newGrid) || newGrid <= 0) {
+    newGrid = prompt('X must be a positive number. Please enter a number X:');
+  }
+  newGrid = parseInt(newGrid); // Convert string to integer
+  gridSize = newGrid; // Update the grid size variable
+  root.style.setProperty('--grid-size', gridSize); // Apply the new size to CSS
+
+  generateGrid(gridSize); // Regenerate the grid with the new size
+
+  const divs = document.querySelectorAll('.container div');
+  divs.forEach(div => {
+    div.addEventListener('mouseover', () => {
+      div.style.background = "#AA0000";
+    });
+/*
+    div.addEventListener('mouseout', () => {
+      div.style.background = '';
+    });*/
+});
+});
+
+const divInContainer = document.querySelectorAll('.container div');
 // Add event listener to each div
 divInContainer.forEach(div => {
     div.addEventListener('mouseover', () => {
         div.style.background = "#AA0000";
     });
-
-    div.addEventListener('mouseoff', () => {
-        changeBackground('');
+/*
+    div.addEventListener('mouseout', () => {
+        div.style.background = ''
     });
+*/
 });
-
   </script>
 </body>
 </html>
