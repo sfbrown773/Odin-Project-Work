@@ -1,18 +1,21 @@
 function facts() {
+    const factsTab = document.querySelector('#facts');
     
-    function clearDom() {
-        while (document.body.firstChild) {
-            document.body.removeChild(document.body.firstChild);
-          }
-    }
-    clearDom();
+    factsTab.addEventListener('click', () => {
+        function clearDom() {
+            while (document.body.firstChild) {
+                document.body.removeChild(document.body.firstChild);
+              }
+        }
+        clearDom();
 
-    const contentDiv = document.createElement('div')
+        const contentDiv = document.createElement('div')
 
-    const para = document.createElement('p')
-    para.textContent = 'Some other text'
- 
-    contentDiv.appendChild(para);
+        const para = document.createElement('p')
+        para.textContent = 'Some other text'
+     
+        contentDiv.appendChild(para);
+    })
 }
 
 
