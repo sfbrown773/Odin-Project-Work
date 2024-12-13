@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const victoryOptions = [
+            ['sq1', 'sq2', 'sq3'],
+            ['sq4', 'sq5', 'sq6'],
+            ['sq7', 'sq8', 'sq9'],
+            ['sq1', 'sq4', 'sq7'],
+            ['sq2', 'sq5', 'sq8'],
+            ['sq3', 'sq6', 'sq9'],
+            ['sq1', 'sq5', 'sq9'],
+            ['sq3', 'sq5', 'sq7']
+        ];
+        let currentPlayer = 'human';
+
+        let gameboard = ['sq1', 'sq2', 'sq3', 'sq4', 'sq5', 'sq6', 'sq7', 'sq8', 'sq9'];
+        let humanChoices = [];
+        let computerChoices = [];
+
+        function resetGame() {
+            gameboard = ['sq1', 'sq2', 'sq3', 'sq4', 'sq5', 'sq6', 'sq7', 'sq8', 'sq9'];
+            humanChoices = [];
+            computerChoices = [];
+            currentPlayer = 'human';
+
+            // Clear the board visually
+            const inputs = document.querySelectorAll('input.square');
+            inputs.forEach(input => input.value = '');
+        }
+        function checkVictory(playerChoices) {
+            const hasVictory = victoryOptions.some((combo) => 
+                combo.every((pos) => playerChoices.includes(pos))
+            );
+            if (hasVictory) {
+                alert(`${currentPlayer === 'human' ? 'Human' : 'Computer'} wins!`);
+                resetGame(); // Reset the game if there's a winner
+                return true;
+            }
+            if (gameboard.length === 0) {
+                Alert('Tie');
+                resetGame();
+                return false
+            }
+
+            return false            
+        }
+
+        function computerMove() {
+            if (gameboard.length === 0) return; // No valid moves left
+
+            const randomIndex = Math.floor(Math.random() * gameboard.length);
+            const computerChoice = gameboard[randomIndex];
+            gameboard.splice(randomIndex, 1);
+            computerChoices.push(computerChoice);
+
+            console.log("Computer Choices: ", computerChoices);
+
+            // Update the board visually
+            const input = document.getElementById(computerChoice);
+            input.value = 'O';
+
+            // Check for victory or tie
+            if (checkVictory(computerChoices)) return;
+
+            // Waits for human to make the next move (humanMove is triggered by event listeners)
+        }
+
+        function humanMove(chosenSquare) {
+            const humanIndex = gameboard.indexOf(chosenSquare);
+            if (humanIndex !== -1) {
+                gameboard.splice(humanIndex, 1);
+                humanChoices.push(chosenSquare);
+
+                console.log("Human Choices: ", humanChoices);
+
+                // Update the board visually
+                const input = document.getElementById(chosenSquare);
+                input.value = 'X';
+
+                // Check for victory or tie
+                if (checkVictory(humanChoices)) return; 
+
+                // Trigger computer move
+                computerMove();
+            } else {
+                alert("Square already taken! Choose another.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('input.square');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentPlayer === 'human') {
+                        const humanChoice = button.id;
+                        button.value = 'X';
+                        humanMove(humanChoice);
+                    }
+                });
+            });
+
+            const startButton = document.querySelector('#startGame');
+            startButton.addEventListener('click', () => {
+                gameboard = ['sq1', 'sq2', 'sq3', 'sq4', 'sq5', 'sq6', 'sq7', 'sq8', 'sq9'];
+                humanChoices = [];
+                computerChoices = [];
+                currentPlayer = 'human';
+                document.querySelectorAll('input.square').forEach(input => input.value = '');
+                console.log("Game started!");
+            });
+        });
+    </script>
+    <style>
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+          width: 400px; /* Adjust width as needed */
+        }
+      
+        input {
+          width: 100px;
+          height: 100px;
+          text-align: center;
+        }
+      </style>
+</head>
+<body>
+    <button id="startGame">Start Game</button>
+    <div class="container">
+        <input id="sq1" class="square" type="text" readonly>
+        <input id="sq2" class="square" type="text" readonly>
+        <input id="sq3" class="square" type="text" readonly>
+        <input id="sq4" class="square" type="text" readonly>
+        <input id="sq5" class="square" type="text" readonly>
+        <input id="sq6" class="square" type="text" readonly>
+        <input id="sq7" class="square" type="text" readonly>
+        <input id="sq8" class="square" type="text" readonly>
+        <input id="sq9" class="square" type="text" readonly>
+    </div>
+</body>
+</html>

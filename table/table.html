@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Table template</title>
+    <link href="minimal-table.css" rel="stylesheet" type="text/css">
+    <style>td:hover{
+      background-color: hotpink;
+    }
+    .box::before {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: rebeccapurple;
+    border: 1px solid black;
+  }
+   
+   </style>
+  </head>
+  <body>
+    <h1>Table template</h1>
+    <p class="box">Content in the box in my HTML page.</p>
+    <table>
+        <tr>
+          <td class="piss">Hi I'm your 1 cell</td>
+          <td>Hi I'm your 2 cell</td>
+          <td>Hi I'm your 3 cell</td>
+          <td>Hi I'm your 4 cell</td>
+        </tr>
+        <th>
+          <tr>
+            <td>Hi I'm your 1 cell</td>
+            <td>Hi I'm your 2 cell</td>
+            <td>Hi I'm your 3 cell</td>
+            <td>Hi I'm your 4 cell</td>
+          </tr>
+        </th>
+    </table>
+
+  </body>
+</html>

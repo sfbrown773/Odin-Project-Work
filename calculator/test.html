@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+        box-sizing: border-box;
+        }
+        .calculator {
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        width: 33%;
+        }
+
+        #result {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+        margin-bottom: 10px;
+        }
+
+        .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        }
+
+        .button {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+        cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" readonly>
+        <div class="buttons">
+            <button class="number calcbutton">1</button>
+            <button class="number calcbutton">2</button>
+            <button class="number calcbutton">3</button>
+            <button class="operator calcbutton">+</button>
+            <button class="number calcbutton">4</button>
+            <button class="number calcbutton">5</button>
+            <button class="number calcbutton">6</button>
+            <button class="operator calcbutton">-</button>
+            <button class="number calcbutton">7</button>
+            <button class="number calcbutton">8</button>
+            <button class="number calcbutton">9</button>
+            <button class="operator calcbutton">*</button>
+            <button class="clear calcbutton">C</button>
+            <button class="number calcbutton">0</button>
+            <button class="decimal calcbutton">.</button>
+            <button class="operator calcbutton">/</button>
+            <button class="equals calcbutton">=</button>
+        </div>
+    </div>
+    <script>
+        const resultDisplay = document.getElementById('result');
+  
+        function add(addend1, addend2) {
+      const sum = addend1 + addend2
+      return sum
+  }
+  
+  function subtract(minuend, subtrahend) {
+      const difference = minuend - subtrahend
+      return difference
+  }
+  
+  function multiply(multiplicand, multiplier) {
+      const product = multiplicand * multiplier
+      return product
+  }
+  
+  function divide(dividend, divisor) {
+      const quotient = dividend / divisor
+      return quotient
+  }
+  
+  var num1
+  var num2
+  var operator
+  var numString1
+  var numString2
+  
+  function operate(num1,num2,operator) {
+      if (operator === '+') {
+          return add(num1, num2);
+      } else if (operator === '-') {
+          return subtract(num1, num2);
+      } else if (operator === '*') {
+          return product(num1, num2);
+      } else if (operator === '/') {
+          return divide(num1, num2)
+      }
+  }
+  
+  const numberButtons = document.querySelectorAll('.number');
+  const operatorButtons = document.querySelectorAll('.operator');
+  const decimalButton = document.querySelector('.decimal');
+  const equalsButton = document.querySelector('.equals');
+  const clearButton = document.querySelector('.clear');
+  
+  numberButtons.forEach(button => {
+      button.addEventListener('click', () => {
+          const value = button.textContent;
+          console.log(`Clicked number: ${value}`);
+      if (!numString1) {
+          numString1 = value
+          resultDisplay.value = numString1
+      } else if (numString1 && !operator) {
+          numString1 += value
+          resultDisplay.value = numString1
+      } else if (numString1 && operator && !numString2) {
+          numString2 = value
+          resultDisplay.value = numString2
+      } else if (numString1 && operator && numString2) {
+          numString2 += value
+          resultDisplay.value = numString2
+      }
+      console.log(`numString1: ${numString1}, numString2: ${numString2}, operator: ${operator}`);
+        console.log(`Display value: ${resultDisplay.value}`);
+      });
+  });
+  operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const value = button.textContent;
+      console.log(`Clicked operator: ${value}`);
+      if (!numString1) {
+          numString1 = 0
+          operator = value
+          resultDisplay.value = 0
+      } else if (numString1 && !operator) {
+          operator = value
+      } else if (numString1 && operator && !numString2) {
+        throw new Error('Invalid operation');
+      } else if (numString1 && operator && numString2) {
+          num1 = parseFloat(numString1);
+          num2 = parseFloat(numString2);
+          const result = operate(num1, num2, operator);
+          let numString1 = result
+          let operator = value
+      } 
+      console.log(`numString1: ${numString1}, numString2: ${numString2}, operator: ${operator}`);
+        console.log(`Display value: ${resultDisplay.value}`);
+  });
+});
+  decimalButton.addEventListener('click', () => {
+  
+  });
+  equalsButton.addEventListener('click', () => {
+      if (!numString1) {
+          resultDisplay.value = 0
+      } else if (numString1 && !operator) {
+          resultDisplay.value = numString1
+      } else if (numString1 && operator && !numString2) {
+          resultDisplay.value = numString1
+      } else if (numString1 && operator && numString2) {
+          num1 = parseFloat(numString1);
+          num2 = parseFloat(numString2);
+          const result = operate(num1, num2, operator);
+          resultDisplay.value = result
+      }
+  });
+  clearButton.addEventListener('click', () => {
+        num1 = null;
+        num2 = null;
+        numString1 = null;
+        numString2 = null;
+        operator = null;
+        resultDisplay.value = 0;
+  });  
+      </script>
+</body>
+</html>
