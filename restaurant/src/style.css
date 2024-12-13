@@ -1,0 +1,12 @@
+body {
+    background-image: url("./background.jpg"); 
+    /* Optional CSS properties */
+    background-size: cover; /* To cover the entire screen */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent image repetition */
+  }
+
+header {
+    text-align: center;
+    background-color: white;
+}
